@@ -1,7 +1,7 @@
 package project.epic_energy_back.controller;
 
 import project.epic_energy_back.dto.UtenteLoginDTO;
-import project.epic_energy_back.dto.UtentiDTO;
+import project.epic_energy_back.dto.UtenteDTO;
 import project.epic_energy_back.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import project.epic_energy_back.service.AuthService;
-import project.epic_energy_back.service.UtentiService;
+import project.epic_energy_back.service.UtenteService;
 
 @RestController
 public class AuthController {
@@ -19,10 +19,10 @@ public class AuthController {
     private AuthService authService;
 
     @Autowired
-    private UtentiService utentiService;
+    private UtenteService utenteService;
 
     @PostMapping("/auth/register")
-    public String register(@RequestBody @Validated UtentiDTO utentiDTO, BindingResult bindingResult) {
+    public String register(@RequestBody @Validated UtenteDTO utenteDTO, BindingResult bindingResult) {
 
 
         if (bindingResult.hasErrors()) {
@@ -30,7 +30,7 @@ public class AuthController {
                     reduce("", (s, s2) -> s + s2));
         }
 
-        return utentiService.saveUser(utentiDTO);
+        return utenteService.saveUtente(utenteDTO);
     }
 
     @PostMapping("/auth/login")

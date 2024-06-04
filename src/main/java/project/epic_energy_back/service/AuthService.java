@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AuthService {
 
     @Autowired
-    private UtentiService utentiService;
+    private UtenteService utenteService;
 
     @Autowired
     private JwtTool jwtTool;
@@ -25,7 +25,7 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     public String authenticateUtenteAndCreateToken(UtenteLoginDTO utenteLoginDto) {
-        Optional<Utente> utenteOptional = utentiService.getUtenteByEmail(utenteLoginDto.getEmail());
+        Optional<Utente> utenteOptional = utenteService.getUtenteByEmail(utenteLoginDto.getEmail());
 
         if (utenteOptional.isPresent()) {
             Utente utente = utenteOptional.get();

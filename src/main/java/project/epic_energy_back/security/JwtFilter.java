@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import project.epic_energy_back.entities.Utente;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.exceptions.UnauthorizedException;
-import project.epic_energy_back.service.UtentiService;
+import project.epic_energy_back.service.UtenteService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -27,10 +27,8 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTool jwtTool;
 
-
     @Autowired
-    private UtentiService utentiService;
-
+    private UtenteService utenteService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -48,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
         int userId = jwtTool.getIdFromToken(token);
 
 
-        Optional<Utente> utentiOptional = utentiService.getUtenteById(userId);
+        Optional<Utente> utentiOptional = utenteService.getUtenteById(userId);
 
         if(utentiOptional.isPresent()){
             Utente utente = utentiOptional.get();
