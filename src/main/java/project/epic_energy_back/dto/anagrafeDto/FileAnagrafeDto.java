@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class AnagrafeDto {
+public class FileAnagrafeDto {
     private MultipartFile comuniFile;
     private MultipartFile provinceFile;
 }

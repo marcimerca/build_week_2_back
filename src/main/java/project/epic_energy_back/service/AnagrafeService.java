@@ -2,7 +2,8 @@ package project.epic_energy_back.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.epic_energy_back.dto.anagrafeDto.AnagrafeDto;
+import project.epic_energy_back.dto.anagrafeDto.FileAnagrafeDto;
+import project.epic_energy_back.entities.anagrafe.AnagrafeCenter;
 import project.epic_energy_back.entities.anagrafe.Comune;
 import project.epic_energy_back.entities.anagrafe.Provincia;
 import project.epic_energy_back.repository.AnagrafeRepository;
@@ -11,6 +12,7 @@ import project.epic_energy_back.repository.ProvinciaRepository;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 @Service
 public class AnagrafeService {
@@ -21,10 +23,14 @@ public class AnagrafeService {
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
-    public String saveAnagrafe(AnagrafeDto anagrafeDto) {
+    public List<AnagrafeCenter> getAnagrafe() {
+        return anagrafeRepository.findAll();
+    }
+
+    public String saveAnagrafe(FileAnagrafeDto fileAnagrafeDto) {
         try {
-            BufferedReader comuniReader = new BufferedReader(new InputStreamReader(anagrafeDto.getComuniFile().getInputStream()));
-            BufferedReader provinceReader = new BufferedReader(new InputStreamReader(anagrafeDto.getProvinceFile().getInputStream()));
+            BufferedReader comuniReader = new BufferedReader(new InputStreamReader(fileAnagrafeDto.getComuniFile().getInputStream()));
+            BufferedReader provinceReader = new BufferedReader(new InputStreamReader(fileAnagrafeDto.getProvinceFile().getInputStream()));
             while (provinceReader.ready()) {
                 String line = provinceReader.readLine();
                 String[] blocco = line.split(";");
