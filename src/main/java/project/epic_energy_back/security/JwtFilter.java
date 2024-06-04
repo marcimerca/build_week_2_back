@@ -1,10 +1,10 @@
-package security;
+package project.epic_energy_back.security;
 
 
 
-import entities.Utenti;
-import exceptions.NotFoundException;
-import exceptions.UnauthorizedException;
+import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.exceptions.NotFoundException;
+import project.epic_energy_back.exceptions.UnauthorizedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import service.UtentiService;
+import project.epic_energy_back.service.UtentiService;
 
 import java.io.IOException;
 import java.util.Optional;

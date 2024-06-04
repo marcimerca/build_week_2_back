@@ -1,7 +1,7 @@
-package entities;
+package project.epic_energy_back.entities;
 
 
-import enums.TipoSocieta;
+import project.epic_energy_back.enums.TipoSocieta;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

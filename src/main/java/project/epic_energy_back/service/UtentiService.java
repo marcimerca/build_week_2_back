@@ -1,13 +1,13 @@
-package service;
+package project.epic_energy_back.service;
 
 
-import dto.UtentiDTO;
-import entities.Utenti;
-import enums.Ruolo;
+import project.epic_energy_back.dto.UtentiDTO;
+import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.enums.Ruolo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import repository.UtentiRepository;
+import project.epic_energy_back.repository.UtentiRepository;
 
 import java.util.Optional;
 

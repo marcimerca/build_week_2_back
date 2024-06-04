@@ -1,4 +1,4 @@
-package exceptions;
+package project.epic_energy_back.exceptions;
 
 public class BadRequestException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package entities;
+package project.epic_energy_back.entities;
 
-import enums.STATO_FATTURA;
+import project.epic_energy_back.enums.STATO_FATTURA;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

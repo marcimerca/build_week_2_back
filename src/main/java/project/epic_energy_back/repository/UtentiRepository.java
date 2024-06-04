@@ -1,12 +1,11 @@
-package repository;
+package project.epic_energy_back.repository;
 
-import entities.Utenti;
+import project.epic_energy_back.entities.Utenti;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface UtentiRepository extends JpaRepository {
+public interface UtentiRepository extends JpaRepository<Utenti,Integer> {
 
     public Optional<Utenti> findByEmail(String email);
 }

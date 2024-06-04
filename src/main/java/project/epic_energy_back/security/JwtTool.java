@@ -1,7 +1,7 @@
-package security;
+package project.epic_energy_back.security;
 
-import entities.Utenti;
-import exceptions.UnauthorizedException;
+import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

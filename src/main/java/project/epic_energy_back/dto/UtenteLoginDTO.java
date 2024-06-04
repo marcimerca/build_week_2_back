@@ -1,4 +1,4 @@
-package dto;
+package project.epic_energy_back.dto;
 
 
 import jakarta.validation.constraints.Email;

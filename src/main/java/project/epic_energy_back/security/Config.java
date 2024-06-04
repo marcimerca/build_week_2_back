@@ -1,4 +1,4 @@
-package security;
+package project.epic_energy_back.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

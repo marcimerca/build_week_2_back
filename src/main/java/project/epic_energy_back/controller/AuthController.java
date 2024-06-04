@@ -1,17 +1,16 @@
-package controller;
+package project.epic_energy_back.controller;
 
-import dto.UtenteLoginDTO;
-import dto.UtentiDTO;
-import exceptions.BadRequestException;
+import project.epic_energy_back.dto.UtenteLoginDTO;
+import project.epic_energy_back.dto.UtentiDTO;
+import project.epic_energy_back.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import service.AuthService;
-import service.UtentiService;
+import project.epic_energy_back.service.AuthService;
+import project.epic_energy_back.service.UtentiService;
 
 @RestController
 public class AuthController {

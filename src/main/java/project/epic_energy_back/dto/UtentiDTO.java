@@ -1,7 +1,7 @@
-package dto;
+package project.epic_energy_back.dto;
 
 
-import enums.Ruolo;
+import project.epic_energy_back.enums.Ruolo;
 import lombok.Data;
 
 @Data

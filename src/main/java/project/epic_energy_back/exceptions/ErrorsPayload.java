@@ -1,4 +1,4 @@
-package exceptions;
+package project.epic_energy_back.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package entities;
+package project.epic_energy_back.entities;
 
-import enums.Ruolo;
+import project.epic_energy_back.enums.Ruolo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

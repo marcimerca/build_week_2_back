@@ -1,14 +1,14 @@
-package service;
+package project.epic_energy_back.service;
 
 
-import dto.UtenteLoginDTO;
-import entities.Utenti;
-import exceptions.NotFoundException;
-import exceptions.UnauthorizedException;
+import project.epic_energy_back.dto.UtenteLoginDTO;
+import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.exceptions.NotFoundException;
+import project.epic_energy_back.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import security.JwtTool;
+import project.epic_energy_back.security.JwtTool;
 
 import java.util.Optional;
 
