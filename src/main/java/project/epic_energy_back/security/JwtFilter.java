@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.entities.Utente;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.exceptions.UnauthorizedException;
 import project.epic_energy_back.service.UtentiService;
@@ -48,12 +48,12 @@ public class JwtFilter extends OncePerRequestFilter {
         int userId = jwtTool.getIdFromToken(token);
 
 
-        Optional<Utenti> utentiOptional = utentiService.getUtenteById(userId);
+        Optional<Utente> utentiOptional = utentiService.getUtenteById(userId);
 
         if(utentiOptional.isPresent()){
-            Utenti utenti = utentiOptional.get();
+            Utente utente = utentiOptional.get();
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(utenti, null, utenti.getAuthorities());
+            Authentication authentication = new UsernamePasswordAuthenticationToken(utente, null, utente.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         else{

@@ -1,20 +1,20 @@
 package project.epic_energy_back.entities;
 
 
+import jakarta.persistence.*;
 import project.epic_energy_back.enums.TipoSocieta;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
-public class Clienti {
+public class Cliente {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private int id;
 
     private String ragioneSociale;
@@ -45,5 +45,12 @@ public class Clienti {
 
 
     private TipoSocieta tipoSocieta;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Indirizzo> indirizzi = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Fattura> fatture = new ArrayList<>();
+
 
 }

@@ -1,6 +1,6 @@
 package project.epic_energy_back.security;
 
-import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.entities.Utente;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -21,10 +21,10 @@ public class JwtTool {
 
 
     //crea token impostando data inizio, data fine, id utente e firma del token attraverso la chiave segreta
-    public String createToken(Utenti utenti) {
+    public String createToken(Utente utente) {
         return Jwts.builder().setIssuedAt(new Date(System.currentTimeMillis())).
                 expiration(new Date(System.currentTimeMillis() + duration)).
-                subject(String.valueOf(utenti.getId())).
+                subject(String.valueOf(utente.getId())).
                 signWith(Keys.hmacShaKeyFor(secret.getBytes())).
                 compact();
     }

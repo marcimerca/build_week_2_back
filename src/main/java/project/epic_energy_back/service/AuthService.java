@@ -2,7 +2,7 @@ package project.epic_energy_back.service;
 
 
 import project.epic_energy_back.dto.UtenteLoginDTO;
-import project.epic_energy_back.entities.Utenti;
+import project.epic_energy_back.entities.Utente;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,10 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     public String authenticateUtenteAndCreateToken(UtenteLoginDTO utenteLoginDto) {
-        Optional<Utenti> utenteOptional = utentiService.getUtenteByEmail(utenteLoginDto.getEmail());
+        Optional<Utente> utenteOptional = utentiService.getUtenteByEmail(utenteLoginDto.getEmail());
 
         if (utenteOptional.isPresent()) {
-            Utenti utente = utenteOptional.get();
+            Utente utente = utenteOptional.get();
             if (passwordEncoder.matches(utenteLoginDto.getPassword(), utente.getPassword())) {
                 return jwtTool.createToken(utente);
             } else {
