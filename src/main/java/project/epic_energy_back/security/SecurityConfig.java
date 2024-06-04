@@ -1,3 +1,4 @@
+/*
 package project.epic_energy_back.security;
 
 import org.springframework.context.annotation.Bean;
@@ -19,4 +20,4 @@ public class SecurityConfig {
         httpSecurity.csrf(e->e.disable());
         return httpSecurity.build();
     }
-}
+}*/

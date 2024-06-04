@@ -1,3 +1,4 @@
+/*
 package project.epic_energy_back.exeption;
 
 public class NotFoundExecution extends RuntimeException {
@@ -5,3 +6,4 @@ public class NotFoundExecution extends RuntimeException {
         super(message);
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package project.epic_energy_back.exeption;
 
 
@@ -9,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import project.epic_energy_back.entity.ErrorPaylod.ErrorDeiPayload;
-import project.epic_energy_back.entity.ErrorPaylod.ErrorsPayload;
+import project.epic_energy_back.entities.ErrorPaylod.ErrorDeiPayload;
+import project.epic_energy_back.entities.ErrorPaylod.ErrorsPayload;
 
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
@@ -43,3 +44,4 @@ public class ExceptionsHandler{
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Accesso non autorizzato");
     }
 }
+*/

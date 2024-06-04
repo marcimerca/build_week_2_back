@@ -1,3 +1,4 @@
+/*
 package project.epic_energy_back.exeption;
 
 import lombok.Data;
@@ -18,3 +19,4 @@ public class BadRequestException extends RuntimeException{
         this.errorsList = errorsList;
     }
 }
+*/

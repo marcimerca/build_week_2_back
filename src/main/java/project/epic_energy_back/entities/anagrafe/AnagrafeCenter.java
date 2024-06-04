@@ -1,4 +1,4 @@
-package project.epic_energy_back.entity.anagrafe;
+package project.epic_energy_back.entities.anagrafe;
 
 import jakarta.persistence.*;
 import lombok.Builder;

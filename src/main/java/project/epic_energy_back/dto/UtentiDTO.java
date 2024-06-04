@@ -18,5 +18,5 @@ public class UtentiDTO {
 
     private String avatar;
 
-    private Ruolo ruolo;
+   // private Ruolo ruolo;
 }

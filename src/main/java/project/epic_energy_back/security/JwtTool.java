@@ -1,11 +1,12 @@
 package project.epic_energy_back.security;
 
 import project.epic_energy_back.entities.Utenti;
-import project.epic_energy_back.exceptions.UnauthorizedException;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import project.epic_energy_back.exceptions.UnauthorizedException;
 
 import java.util.Date;
 

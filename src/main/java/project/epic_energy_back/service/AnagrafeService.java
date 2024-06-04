@@ -3,8 +3,8 @@ package project.epic_energy_back.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.epic_energy_back.dto.anagrafeDto.AnagrafeDto;
-import project.epic_energy_back.entity.anagrafe.Comune;
-import project.epic_energy_back.entity.anagrafe.Provincia;
+import project.epic_energy_back.entities.anagrafe.Comune;
+import project.epic_energy_back.entities.anagrafe.Provincia;
 import project.epic_energy_back.repository.AnagrafeRepository;
 import project.epic_energy_back.repository.ProvinciaRepository;
 

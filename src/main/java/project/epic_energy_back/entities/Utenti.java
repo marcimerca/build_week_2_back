@@ -1,9 +1,7 @@
 package project.epic_energy_back.entities;
 
+import jakarta.persistence.*;
 import project.epic_energy_back.enums.Ruolo;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +29,7 @@ public class Utenti implements UserDetails {
     private String cognome;
 
     private String avatar;
-
+    @Enumerated(EnumType.STRING)
     private Ruolo ruolo;
 
 

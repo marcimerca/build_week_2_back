@@ -1,11 +1,9 @@
-package project.epic_energy_back.entity.anagrafe;
+package project.epic_energy_back.entities.anagrafe;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
