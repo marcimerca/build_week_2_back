@@ -5,8 +5,11 @@ import dto.UtentiDTO;
 import entities.Utenti;
 import enums.Ruolo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import repository.UtentiRepository;
+
+import java.util.Optional;
 
 
 @Service
@@ -14,6 +17,9 @@ public class UtentiService {
 
     @Autowired
     private UtentiRepository utentiRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
 
@@ -32,8 +38,14 @@ public class UtentiService {
 
         utentiRepository.save(utenti);
         return "User with id=" + utenti.getId() + " correctly saved";
+
+
     }
-
-
+    public Optional<Utenti> getUtenteByEmail(String email){
+        return utentiRepository.findByEmail(email);
+    }
+   public Optional<Utenti> getUtenteById(int id){
+        return utentiRepository.findById(id);
+    }
 
 }

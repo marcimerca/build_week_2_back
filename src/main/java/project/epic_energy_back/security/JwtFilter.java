@@ -48,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
         int userId = jwtTool.getIdFromToken(token);
 
 
-        Optional<Utenti> utentiOptional = utentiService.getUserById(userId);
+        Optional<Utenti> utentiOptional = utentiService.getUtenteById(userId);
 
         if(utentiOptional.isPresent()){
             Utenti utenti = utentiOptional.get();
