@@ -31,7 +31,6 @@ public class ClienteService {
     public String saveCliente(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente();
         cliente.setEmail(clienteDTO.getEmail());
-        cliente.setFatture(clienteDTO.getFatture());
         cliente.setNomeContatto(clienteDTO.getNomeContatto());
         cliente.setCognomeContatto(clienteDTO.getCognomeContatto());
         cliente.setPec(clienteDTO.getPec());
@@ -39,7 +38,6 @@ public class ClienteService {
         cliente.setDataUltimoContatto(clienteDTO.getDataUltimoContatto());
         cliente.setFatturatoAnnuale(clienteDTO.getFatturatoAnnuale());
         cliente.setEmailContatto(clienteDTO.getEmailContatto());
-        cliente.setIndirizzi(clienteDTO.getIndirizzi());
         cliente.setLogoAziendale(clienteDTO.getLogoAziendale());
         cliente.setPartitaIva(clienteDTO.getPartitaIva());
         cliente.setRagioneSociale(clienteDTO.getRagioneSociale());
@@ -70,7 +68,6 @@ public class ClienteService {
        if(clienteOptional.isPresent()){
            Cliente cliente = clienteOptional.get();
            cliente.setEmail(clienteDTO.getEmail());
-           cliente.setFatture(clienteDTO.getFatture());
            cliente.setNomeContatto(clienteDTO.getNomeContatto());
            cliente.setCognomeContatto(clienteDTO.getCognomeContatto());
            cliente.setPec(clienteDTO.getPec());
@@ -78,7 +75,6 @@ public class ClienteService {
            cliente.setDataUltimoContatto(clienteDTO.getDataUltimoContatto());
            cliente.setFatturatoAnnuale(clienteDTO.getFatturatoAnnuale());
            cliente.setEmailContatto(clienteDTO.getEmailContatto());
-           cliente.setIndirizzi(clienteDTO.getIndirizzi());
            cliente.setLogoAziendale(clienteDTO.getLogoAziendale());
            cliente.setPartitaIva(clienteDTO.getPartitaIva());
            cliente.setRagioneSociale(clienteDTO.getRagioneSociale());

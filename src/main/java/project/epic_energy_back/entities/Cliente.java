@@ -44,6 +44,7 @@ public class Cliente {
     private String logoAziendale;
 
 
+    @Enumerated(EnumType.STRING)
     private TipoSocieta tipoSocieta;
 
     @OneToMany(mappedBy = "cliente")

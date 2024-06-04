@@ -19,52 +19,58 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
 
-    @GetMapping("/api/clienti")
+    @PostMapping("/clienti")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public List<Cliente> getAllclienti(){
+    public String saveCliente(@RequestBody @Validated ClienteDTO clienteDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException(bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).
+                    reduce("", (s, s2) -> s + s2));
+        }
+        return clienteService.saveCliente(clienteDTO);
+    }
+
+
+    @GetMapping("/clienti")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public List<Cliente> getAllclienti() {
 
         return clienteService.getAllClienti();
     }
 
-    @GetMapping("/api/clienti/{id}")
+    @GetMapping("/clienti/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public Cliente getClienteById(@PathVariable int id){
+    public Cliente getClienteById(@PathVariable int id) {
         Optional<Cliente> clienteOptional = clienteService.getClienteById(id);
 
-        if(clienteOptional.isPresent()){
+        if (clienteOptional.isPresent()) {
             return clienteOptional.get();
-        }
-        else{
+        } else {
             throw new NotFoundException("User with id=" + id + " not found");
         }
     }
 
-    @PutMapping("/api/clienti/{id}")
+    @PutMapping("/clienti/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Cliente updateCliente(@PathVariable int id, @RequestBody @Validated ClienteDTO clienteDTO, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult.getAllErrors().stream().map(error->error.getDefaultMessage()).
-                    reduce("", (s, s2) -> s+s2));
+    public Cliente updateCliente(@PathVariable int id, @RequestBody @Validated ClienteDTO clienteDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException(bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).
+                    reduce("", (s, s2) -> s + s2));
         }
 
         return clienteService.updateCliente(id, clienteDTO);
     }
 
-    @DeleteMapping("/api/clienti/{id}")
+    @DeleteMapping("/clienti/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteCliente(@PathVariable int id){
+    public String deleteCliente(@PathVariable int id) {
         return clienteService.deleteCliente(id);
     }
-
-
-
 
 
 }
