@@ -1,6 +1,10 @@
 package project.epic_energy_back.service;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -59,9 +63,10 @@ public class UtenteService {
         return utenteRepository.findByEmail(email);
     }
 
-    public List<Utente> getAllUtenti (){
 
-      return utenteRepository.findAll();
+    public Page<Utente> getAllUtenti (int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+      return utenteRepository.findAll(pageable);
 
     }
 

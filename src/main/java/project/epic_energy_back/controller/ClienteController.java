@@ -2,6 +2,12 @@ package project.epic_energy_back.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +21,7 @@ import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.ClienteRepository;
 import project.epic_energy_back.service.ClienteService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +45,16 @@ public class ClienteController {
 
     @GetMapping("/clienti")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public List<Cliente> getAllclienti() {
+    public Page<Cliente> getAllclienti(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "15") int size,
+                                       @RequestParam(defaultValue = "id") String sortBy) {
 
-        return clienteService.getAllClienti();
+        return clienteService.getAllClienti(page, size, sortBy);
+    }
+
+    @GetMapping("/clienti/provinciaLegale")
+    public Page<Cliente> getClientiOrdinatiPerProvinciaSedeLegale(@PageableDefault(size = 10) Pageable pageable) {
+        return clienteService.getClientiOrdinatiPerProvinciaSedeLegale(pageable);
     }
 
     @GetMapping("/clienti/{id}")

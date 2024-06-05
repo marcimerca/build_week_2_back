@@ -1,13 +1,19 @@
 package project.epic_energy_back.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project.epic_energy_back.dto.anagrafeDto.IndirizzoAnagrafeDto;
+import project.epic_energy_back.entities.Cliente;
 import project.epic_energy_back.entities.Indirizzo;
 import project.epic_energy_back.entities.anagrafe.AnagrafeCenter;
 import project.epic_energy_back.repository.AnagrafeRepository;
 import project.epic_energy_back.repository.IndirizzoRepository;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class IndirizzoService {
@@ -15,6 +21,8 @@ public class IndirizzoService {
     private IndirizzoRepository indirizzoRepository;
     @Autowired
     private AnagrafeRepository anagrafeRepository;
+    @Autowired
+    private ClienteService clienteService;
 public String saveIndirizzo(IndirizzoAnagrafeDto indirizzoAnagrafeDto) {
 
     Indirizzo indirizzo = new Indirizzo();
@@ -22,14 +30,20 @@ public String saveIndirizzo(IndirizzoAnagrafeDto indirizzoAnagrafeDto) {
     indirizzo.setVia(indirizzoAnagrafeDto.getVia());
     indirizzo.setCivico(indirizzoAnagrafeDto.getCivico());
     indirizzo.setCap(indirizzoAnagrafeDto.getCap());
+    Optional<Cliente>optionalCliente=clienteService.getClienteById(indirizzoAnagrafeDto.getIdCliente());
     Optional<AnagrafeCenter> optionalAnagrafeCenter = anagrafeRepository.findById(indirizzoAnagrafeDto.getIdAnagrafe());
-    if (optionalAnagrafeCenter.isPresent()) {
+    if (!optionalCliente.isPresent()&&!optionalAnagrafeCenter.isPresent()) {
+        throw new RuntimeException("Id del cliente/indirizo non trovato");
+    }
+        indirizzo.setCliente(optionalCliente.get());
         indirizzo.setLocalita(optionalAnagrafeCenter.get());
         indirizzoRepository.save(indirizzo);
         return "indirizzo salvato";
-    } else {
-        throw new RuntimeException("Id dell'indirizzo non trovato");
+
     }
-}
-// manca connessione con il cliente
+
+    public Page<Indirizzo> getAllIndirizzi(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return indirizzoRepository.findAll(pageable);
+    }
 }

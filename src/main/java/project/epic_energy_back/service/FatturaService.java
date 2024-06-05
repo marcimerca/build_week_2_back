@@ -2,6 +2,7 @@ package project.epic_energy_back.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,9 @@ import project.epic_energy_back.entities.Fattura;
 import project.epic_energy_back.exceptions.BadRequestException;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.FatturaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +30,8 @@ public class FatturaService {
 
     @Autowired
     private FatturaRepository fatturaRepository;
-
+    @Autowired
+    private ClienteService clienteService;
 
     public String saveFattura(FatturaDTO fatturaDTO){
 
@@ -36,17 +41,23 @@ public class FatturaService {
         fattura.setImporto(fatturaDTO.getImporto());
         fattura.setNumero(fatturaDTO.getNumero());
         fattura.setStatoFattura(fatturaDTO.getStatoFattura());
-        fattura.setCliente(fatturaDTO.getCliente());
+        Optional<Cliente> clienteOptional = clienteService.getClienteById(fatturaDTO.getIdCliente());
+        if (!clienteOptional.isPresent()) {
+            throw new RuntimeException("Id del cliente non trovato, fattura non caricata");
+        }
+        fattura.setCliente(clienteOptional.get());
 
         fatturaRepository.save(fattura);
         return "Fattura with id=" + fattura.getId() + " correctly saved";
     }
 
-    public List<Fattura> getAllFatture(){
-
-        return fatturaRepository.findAll();
+    public Page<Fattura> getAllFatture(int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+        return fatturaRepository.findAll(pageable);
 
     }
+
+
 
     public Optional<Fattura> getFatturaById(int id){
         return fatturaRepository.findById(id);
@@ -61,7 +72,11 @@ public class FatturaService {
             fattura.setImporto(fatturaDTO.getImporto());
             fattura.setNumero(fatturaDTO.getNumero());
             fattura.setStatoFattura(fatturaDTO.getStatoFattura());
-            fattura.setCliente(fatturaDTO.getCliente());
+            Optional<Cliente> clienteOptional = clienteService.getClienteById(fatturaDTO.getIdCliente());
+            if (!clienteOptional.isPresent()) {
+                throw new RuntimeException("Id del cliente non trovato, fattura non caricata");
+            }
+            fattura.setCliente(clienteOptional.get());
             fatturaRepository.save(fattura);
             return fattura;
         } else {

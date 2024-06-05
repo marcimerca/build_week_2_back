@@ -1,6 +1,7 @@
 package project.epic_energy_back.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth")
 public class UtenteController {
 
     @Autowired
@@ -25,14 +25,17 @@ public class UtenteController {
    // @Autowired
     //private UtenteRepository utenteRepository;
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public List<Utente> getAllUtenti(){
+    public Page<Utente> getAllUtenti(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "15") int size,
+                                     @RequestParam(defaultValue = "id") String sortBy){
+            return utenteService.getAllUtenti(page,size,sortBy);
 
-        return utenteService.getAllUtenti();
     }
 
-    @GetMapping("/api/users/{id}")
+
+    @GetMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public Utente getUserById(@PathVariable int id){
         Optional<Utente> utenteOptional = utenteService.getUtenteById(id);
@@ -45,7 +48,7 @@ public class UtenteController {
         }
     }
 
-    @PutMapping("/api/users/{id}")
+    @PutMapping("/users/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Utente updateUtente(@PathVariable int id, @RequestBody @Validated UtenteDTO utenteDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -56,7 +59,7 @@ public class UtenteController {
         return utenteService.updateUtente(id, utenteDTO);
     }
 
-    @DeleteMapping("/api/users/{id}")
+    @DeleteMapping("/users/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteUtente(@PathVariable int id){
         return utenteService.deleteUtente(id);

@@ -14,26 +14,40 @@ import project.epic_energy_back.exceptions.BadRequestException;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.FatturaRepository;
 import project.epic_energy_back.service.FatturaService;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth")
 public class FatturaController {
 
     @Autowired
     private FatturaService fatturaService;
 
-
-    @GetMapping("/api/fatture")
+    @PostMapping("/fatture")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-    public List<Fattura> getAllFatture(){
+    public String saveFattura(@RequestBody @Validated FatturaDTO fatturaDTO, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            throw new BadRequestException(bindingResult.getAllErrors().stream().map(error->error.getDefaultMessage()).
+                    reduce("", (s, s2) -> s+s2));
+        }
 
-        return fatturaService.getAllFatture();
+        return fatturaService.saveFattura(fatturaDTO);
     }
 
-    @GetMapping("/api/fatture/{id}")
+    @GetMapping("/fatture")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public Page<Fattura> getAllFatture(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "15") int size,
+                                       @RequestParam(defaultValue = "id") String sortBy){
+
+        return fatturaService.getAllFatture(page,size,sortBy);
+    }
+
+
+
+    @GetMapping("/fatture/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public Fattura getFatturaById(@PathVariable int id){
         Optional<Fattura> fatturaOptional = fatturaService.getFatturaById(id);
@@ -46,7 +60,7 @@ public class FatturaController {
         }
     }
 
-    @PutMapping("/api/fatture/{id}")
+    @PutMapping("/fatture/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public Fattura updateFattura(@PathVariable int id, @RequestBody @Validated FatturaDTO fatturaDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -57,7 +71,7 @@ public class FatturaController {
         return fatturaService.updateFattura(id, fatturaDTO);
     }
 
-    @DeleteMapping("/api/fatture/{id}")
+    @DeleteMapping("/fatture/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteFattura(@PathVariable int id){
         return fatturaService.deleteFattura(id);

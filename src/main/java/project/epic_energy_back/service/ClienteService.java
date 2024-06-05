@@ -2,6 +2,10 @@ package project.epic_energy_back.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -52,11 +56,19 @@ public class ClienteService {
 
     }
 
-    public List<Cliente> getAllClienti (){
-
-        return clienteRepository.findAll();
+    public Page<Cliente> getAllClienti (int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+        return clienteRepository.findAll(pageable);
 
     }
+    public Page<Cliente> getAllClientiByProvinciaSedeLegale (int page, int size, String sortBy){
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+        return clienteRepository.findAll(pageable);
+
+    }
+
+
+
 
     public Optional<Cliente> getClienteById(int id){
         return clienteRepository.findById(id);
@@ -100,6 +112,11 @@ public class ClienteService {
             throw new NotFoundException("Cliente con id " + id + " non trovato.");
         }
 
+    }
+
+
+    public Page<Cliente> getClientiOrdinatiPerProvinciaSedeLegale(Pageable pageable) {
+        return clienteRepository.findAllOrderByProvinciaSedeLegale(pageable);
     }
 
 

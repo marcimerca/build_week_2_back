@@ -33,7 +33,9 @@ public class Config {
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers( "/anagrafe/**").permitAll());
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/indirizzo/**").permitAll());
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/clienti/**").permitAll());
-
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/users/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/fatture/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/indirizzi/**").permitAll());
 
         //nega l'accesso a qualsiasi servizio che non sia get e path /api/users
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").denyAll());

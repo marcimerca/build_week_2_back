@@ -1,5 +1,6 @@
 package project.epic_energy_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import project.epic_energy_back.entities.anagrafe.AnagrafeCenter;
@@ -19,11 +20,12 @@ public class Indirizzo {
     private String civico;
     private String cap;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name ="localita_id")
     private AnagrafeCenter localita;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name ="clienti_id")
     private Cliente cliente;
 
