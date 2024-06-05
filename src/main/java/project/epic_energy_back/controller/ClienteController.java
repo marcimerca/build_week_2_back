@@ -94,4 +94,19 @@ public class ClienteController {
     }
 
 
+    @GetMapping("/clienti/filter")
+    public Page<Cliente> filterClienti(
+            @RequestParam(required = false) String ragioneSociale,
+            @RequestParam(required = false) Double fatturatoAnnuale,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInserimento,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataUltimoContatto,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return clienteService.filterClienti(ragioneSociale, fatturatoAnnuale, dataInserimento, dataUltimoContatto, pageable);
+    }
+
+
 }

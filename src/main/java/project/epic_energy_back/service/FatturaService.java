@@ -15,6 +15,7 @@ import project.epic_energy_back.controller.FatturaController;
 import project.epic_energy_back.dto.FatturaDTO;
 import project.epic_energy_back.entities.Cliente;
 import project.epic_energy_back.entities.Fattura;
+import project.epic_energy_back.enums.STATO_FATTURA;
 import project.epic_energy_back.exceptions.BadRequestException;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.FatturaRepository;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,8 +98,47 @@ public class FatturaService {
     }
 
 
+    public Page<Fattura> getFattureByCliente(Cliente cliente, Pageable pageable) {
+        return fatturaRepository.findByCliente(cliente, pageable);
+    }
+
+    public Page<Fattura> getFattureByStatoFattura(STATO_FATTURA statoFattura, Pageable pageable) {
+        return fatturaRepository.findByStatoFattura(statoFattura, pageable);
+    }
+
+    public Page<Fattura> getFattureByDataImporto(LocalDate dataImporto, Pageable pageable) {
+        return fatturaRepository.findByDataImporto(dataImporto, pageable);
+    }
+
+    public Page<Fattura> getFattureByImportoBetween(Double importoMin, Double importoMax, Pageable pageable) {
+        return fatturaRepository.findByImportoBetween(importoMin, importoMax, pageable);
+    }
+
+    public Page<Fattura> getFattureByAnno(Integer anno, Pageable pageable) {
+        return fatturaRepository.findByAnno(anno, pageable);
+    }
+
+    public Page<Fattura> filterFatture(Cliente cliente, STATO_FATTURA statoFattura, LocalDate dataImporto,
+                                       Double importoMin, Double importoMax, Integer anno, Pageable pageable) {
+        if (cliente != null) {
+            return getFattureByCliente(cliente, pageable);
+        } else if (statoFattura != null) {
+            return getFattureByStatoFattura(statoFattura, pageable);
+        } else if (dataImporto != null) {
+            return getFattureByDataImporto(dataImporto, pageable);
+        } else if (importoMin != null && importoMax != null) {
+            return getFattureByImportoBetween(importoMin, importoMax, pageable);
+        } else if (anno != null) {
+            return getFattureByAnno(anno, pageable);
+        } else {
+            return fatturaRepository.findAll(pageable);
+        }
+    }
+
+
 
 
 
 
 }
+
