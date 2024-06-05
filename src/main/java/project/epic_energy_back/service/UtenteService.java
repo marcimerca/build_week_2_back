@@ -1,17 +1,20 @@
 package project.epic_energy_back.service;
 
 
+import com.cloudinary.Cloudinary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 import project.epic_energy_back.controller.UtenteController;
 import project.epic_energy_back.dto.UtenteDTO;
 import project.epic_energy_back.entities.Utente;
@@ -23,6 +26,8 @@ import project.epic_energy_back.exceptions.BadRequestException;
 import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.UtenteRepository;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +40,9 @@ public class UtenteService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     public String saveUtente(UtenteDTO utenteDTO) {
         Utente utente = new Utente();
@@ -99,6 +107,16 @@ public class UtenteService {
 
     }
 
+    public String patchAvatarUtente(MultipartFile foto) throws IOException {
+        Utente utenteLoggato = (Utente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            String url = (String) cloudinary.uploader().upload(foto.getBytes(), Collections.emptyMap()).get("url");
+
+            utenteLoggato.setAvatar(url);
+          utenteRepository.save(utenteLoggato);
+            return "Foto avatar con url " + url + " salvata e associata correttamente all'utente con id " + utenteLoggato.getId();
+
+    }
 
 
 

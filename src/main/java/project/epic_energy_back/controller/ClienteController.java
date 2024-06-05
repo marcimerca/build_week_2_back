@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project.epic_energy_back.dto.ClienteDTO;
 import project.epic_energy_back.dto.UtenteDTO;
 import project.epic_energy_back.entities.Cliente;
@@ -21,6 +22,7 @@ import project.epic_energy_back.exceptions.NotFoundException;
 import project.epic_energy_back.repository.ClienteRepository;
 import project.epic_energy_back.service.ClienteService;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +86,11 @@ public class ClienteController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteCliente(@PathVariable int id) {
         return clienteService.deleteCliente(id);
+    }
+
+    @PatchMapping("/clienti/{id}")
+    public String patchLogoCliente(@PathVariable int id, MultipartFile foto) throws IOException {
+        return clienteService.patchLogoAzienda(id, foto);
     }
 
 
