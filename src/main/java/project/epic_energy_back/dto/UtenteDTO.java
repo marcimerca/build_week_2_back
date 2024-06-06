@@ -24,7 +24,7 @@ public class UtenteDTO {
     @NotBlank(message = "cognome non può essere null, vuota, o composta da soli spazi")
     private String cognome;
 
-    private String avatar;
+   // private String avatar;
 
 
 }

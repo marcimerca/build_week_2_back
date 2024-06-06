@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,12 +27,26 @@ import java.util.Properties;
 @EnableMethodSecurity
 public class Config {
 
+   /* @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+      //  configuration.setAllowCredentials(true);
+       // configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }*/
+
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin(http -> http.disable());
         httpSecurity.csrf(http -> http.disable());
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+        httpSecurity.cors(Customizer.withDefaults());
 
         //permette l'accesso a tutti dei servizi con endpoint /api/users e metodi get (naturalmente dopo l'autenticazione)
         httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/api/**").permitAll());
@@ -55,7 +70,7 @@ public class Config {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean//permette di abilitare l'accesso al servizio anche da parte di server diversi da quello su cui risiede
+  /*  @Bean//permette di abilitare l'accesso al servizio anche da parte di server diversi da quello su cui risiede
     //il servizio. In questo caso ho abilitato tutti i server ad accedere a tutti i servizi
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -66,7 +81,7 @@ public class Config {
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         return source;
-    }
+    }*/
 
 
 

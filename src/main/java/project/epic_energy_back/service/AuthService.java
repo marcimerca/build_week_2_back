@@ -1,6 +1,7 @@
 package project.epic_energy_back.service;
 
 
+import project.epic_energy_back.dto.AuthDataDto;
 import project.epic_energy_back.dto.UtenteLoginDTO;
 import project.epic_energy_back.entities.Utente;
 import project.epic_energy_back.exceptions.NotFoundException;
@@ -24,13 +25,17 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String authenticateUtenteAndCreateToken(UtenteLoginDTO utenteLoginDto) {
+    public AuthDataDto authenticateUtenteAndCreateToken(UtenteLoginDTO utenteLoginDto) {
         Optional<Utente> utenteOptional = utenteService.getUtenteByEmail(utenteLoginDto.getEmail());
 
         if (utenteOptional.isPresent()) {
             Utente utente = utenteOptional.get();
             if (passwordEncoder.matches(utenteLoginDto.getPassword(), utente.getPassword())) {
-                return jwtTool.createToken(utente);
+                 //jwtTool.createToken(utente);
+                 AuthDataDto authDataDto = new AuthDataDto();
+                  authDataDto.setAccessToken(jwtTool.createToken(utente));
+                    return authDataDto;
+
             } else {
                 throw new UnauthorizedException("Errore nel login, riloggarsi");
             }

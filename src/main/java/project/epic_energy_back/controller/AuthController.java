@@ -1,5 +1,7 @@
 package project.epic_energy_back.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import project.epic_energy_back.dto.AuthDataDto;
 import project.epic_energy_back.dto.UtenteLoginDTO;
 import project.epic_energy_back.dto.UtenteDTO;
 import project.epic_energy_back.exceptions.BadRequestException;
@@ -13,6 +15,7 @@ import project.epic_energy_back.service.AuthService;
 import project.epic_energy_back.service.UtenteService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
@@ -34,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody @Validated UtenteLoginDTO utenteLoginDTO, BindingResult bindingResult) {
+    public AuthDataDto login(@RequestBody @Validated UtenteLoginDTO utenteLoginDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage()).
@@ -42,6 +45,5 @@ public class AuthController {
         }
 
         return authService.authenticateUtenteAndCreateToken(utenteLoginDTO);
-
     }
 }
