@@ -13,9 +13,7 @@ import project.epic_energy_back.service.IndirizzoService;
 import java.util.List;
 
 @RestController
-
-
-
+@CrossOrigin(origins = "*")
 public class IndirizzoController {
     @Autowired
     private IndirizzoService indirizzoService;

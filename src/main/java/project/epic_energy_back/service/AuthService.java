@@ -34,6 +34,13 @@ public class AuthService {
                  //jwtTool.createToken(utente);
                  AuthDataDto authDataDto = new AuthDataDto();
                   authDataDto.setAccessToken(jwtTool.createToken(utente));
+                 authDataDto.setRuolo(utente.getRuolo());
+                  authDataDto.setNome(utente.getNome());
+                    authDataDto.setCognome(utente.getCognome());
+                    authDataDto.setEmail(utente.getEmail());
+                    authDataDto.setUsername(utente.getUsername());
+                    authDataDto.setId(utente.getId());
+                  authDataDto.setAvatar(utente.getAvatar());
                     return authDataDto;
 
             } else {
