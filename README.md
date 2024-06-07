@@ -103,7 +103,7 @@ Gli utenti possono avere ruoli di tipo USER (abilitati alle sole operazioni di l
 
 ## Frontend
 
-E' stato implementato un semplice frontend connesso al backend per dimostrare alcune funzionalità della piattaforma. In particolare è stata aggiunta la possibilità dal front end di creare un nuovo cliente (solo per utente "ADMIN"), visualizzare tutti i clienti, i dettagli di ogni cliente con le specifiche fatture, e l'elenco completo delle fatture di tutti i clienti.
+E' stato implementato un semplice frontend ( https://github.com/marcimerca/build_week_2_front ) connesso al backend per dimostrare alcune funzionalità della piattaforma. In particolare è stata aggiunta la possibilità dal front end di creare un nuovo cliente (solo per utente "ADMIN"), visualizzare tutti i clienti, i dettagli di ogni cliente con le specifiche fatture, e l'elenco completo delle fatture di tutti i clienti.
 
 ## Requisiti Tecnici
 
