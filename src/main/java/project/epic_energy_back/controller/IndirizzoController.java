@@ -19,7 +19,7 @@ public class IndirizzoController {
     private IndirizzoService indirizzoService;
 
     @PostMapping("/indirizzi")
-    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveIndirizzo(@RequestBody IndirizzoAnagrafeDto indirizzoAnagrafeDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage()).

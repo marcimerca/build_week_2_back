@@ -37,7 +37,7 @@ public class FatturaController {
     private ClienteService clienteService;
 
     @PostMapping("/fatture")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveFattura(@RequestBody @Validated FatturaDTO fatturaDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(error->error.getDefaultMessage()).

@@ -36,7 +36,7 @@ public class ClienteController {
 
 
     @PostMapping("/clienti")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public String saveCliente(@RequestBody @Validated ClienteDTO clienteDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).
@@ -90,6 +90,7 @@ public class ClienteController {
     }
 
     @PatchMapping("/clienti/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String patchLogoCliente(@PathVariable int id, MultipartFile foto) throws IOException {
         return clienteService.patchLogoAzienda(id, foto);
     }
