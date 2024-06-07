@@ -67,6 +67,8 @@ public class UtenteController {
         return utenteService.deleteUtente(id);
     }
 
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @PatchMapping("/utenti/avatar")
     public String patchAvatarUtente(MultipartFile foto) throws IOException {
         return utenteService.patchAvatarUtente(foto);
