@@ -36,7 +36,7 @@ public class ClienteController {
 
 
     @PostMapping("/clienti")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveCliente(@RequestBody @Validated ClienteDTO clienteDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).
@@ -55,6 +55,7 @@ public class ClienteController {
         return clienteService.getAllClienti(page, size, sortBy);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping("/clienti/provinciaLegale")
     public Page<Cliente> getClientiOrdinatiPerProvinciaSedeLegale(@PageableDefault(size = 10) Pageable pageable) {
         return clienteService.getClientiOrdinatiPerProvinciaSedeLegale(pageable);
@@ -96,6 +97,7 @@ public class ClienteController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping("/clienti/filter")
     public Page<Cliente> filterClienti(
             @RequestParam(required = false) String ragioneSociale,

@@ -88,6 +88,7 @@ public class FatturaController {
         return fatturaService.deleteFattura(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping("/fatture/filter")
     public Page<Fattura> filterFatture(
             @RequestParam(required = false) Integer clienteId,
