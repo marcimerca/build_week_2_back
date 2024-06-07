@@ -8,8 +8,10 @@ import project.epic_energy_back.enums.TipoSede;
 @Data
 public class IndirizzoAnagrafeDto {
 
+/*
     @NotNull(message = "idProvincia cannot be null")
     private Integer idProvincia;
+*/
 
     @NotNull(message = "idAnagrafe cannot be null")
     private Integer idAnagrafe;

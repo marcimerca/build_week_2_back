@@ -45,7 +45,7 @@ public class FatturaService {
         fattura.setStatoFattura(fatturaDTO.getStatoFattura());
         Optional<Cliente> clienteOptional = clienteService.getClienteById(fatturaDTO.getIdCliente());
         if (!clienteOptional.isPresent()) {
-            throw new RuntimeException("Id del cliente non trovato, fattura non caricata");
+            throw new BadRequestException("Id del cliente non trovato, fattura non caricata");
         }
         fattura.setCliente(clienteOptional.get());
 
@@ -76,7 +76,7 @@ public class FatturaService {
             fattura.setStatoFattura(fatturaDTO.getStatoFattura());
             Optional<Cliente> clienteOptional = clienteService.getClienteById(fatturaDTO.getIdCliente());
             if (!clienteOptional.isPresent()) {
-                throw new RuntimeException("Id del cliente non trovato, fattura non caricata");
+                throw new BadRequestException("Id del cliente non trovato, fattura non caricata");
             }
             fattura.setCliente(clienteOptional.get());
             fatturaRepository.save(fattura);

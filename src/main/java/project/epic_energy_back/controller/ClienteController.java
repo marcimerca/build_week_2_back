@@ -49,7 +49,7 @@ public class ClienteController {
     @GetMapping("/clienti")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public Page<Cliente> getAllclienti(@RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "15") int size,
+                                       @RequestParam(defaultValue = "30") int size,
                                        @RequestParam(defaultValue = "id") String sortBy) {
 
         return clienteService.getAllClienti(page, size, sortBy);

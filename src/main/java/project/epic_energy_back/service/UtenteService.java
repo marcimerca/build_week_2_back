@@ -90,7 +90,7 @@ public class UtenteService {
            utenteRepository.save(utente);
             return utente;
         } else {
-            throw new NotFoundException("L' utente con id " + id + " non è stato trovato");
+            throw new BadRequestException("L' utente con id " + id + " non è stato trovato");
         }
     }
 
@@ -101,7 +101,7 @@ public class UtenteService {
             utenteRepository.delete(utenteOptional.get());
             return "L' utente con id " + id + " è stato eliminato con successo.";
         } else {
-            throw new NotFoundException("L' utente con id " + id + " non è stato trovato");
+            throw new BadRequestException("L' utente con id " + id + " non è stato trovato");
         }
 
 
